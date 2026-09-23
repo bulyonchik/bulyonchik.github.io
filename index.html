@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8">
 
-    <!-- Normal display on phones -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- BROWSER TAB TITLE -->
     <title>My Steam Accounts</title>
 
     <style>
@@ -35,10 +33,10 @@
             background:
                 radial-gradient(
                     circle at 50% -10%,
-                    #243b50 0%,
-                    #172433 30%,
-                    #0d141c 65%,
-                    #080c11 100%
+                    #101821 0%,
+                    #0a1017 35%,
+                    #05080c 70%,
+                    #000000 100%
                 );
 
             padding: 55px 20px;
@@ -68,21 +66,6 @@
         }
 
 
-        /*
-        ============================================================
-        SITE AVATAR
-
-        Currently shows the letter S.
-
-        If you want to use your own image:
-        replace the contents of <div class="site-avatar">
-        with:
-
-        <img src="IMAGE_URL">
-
-        ============================================================
-        */
-
         .site-avatar {
             width: 115px;
             height: 115px;
@@ -91,6 +74,8 @@
 
             border-radius: 50%;
 
+            overflow: hidden;
+
             display: flex;
             align-items: center;
             justify-content: center;
@@ -98,12 +83,9 @@
             background:
                 linear-gradient(
                     135deg,
-                    #66c0f4,
-                    #1b6ca8
+                    #2a475e,
+                    #162532
                 );
-
-            font-size: 43px;
-            font-weight: bold;
 
             box-shadow:
                 0 0 35px rgba(102, 192, 244, 0.25);
@@ -112,8 +94,18 @@
         }
 
 
+        .site-avatar img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+
         .site-title {
             font-size: 38px;
+
+            font-weight: 900;
 
             letter-spacing: 5px;
 
@@ -163,14 +155,14 @@
             background:
                 linear-gradient(
                     135deg,
-                    rgba(27, 40, 56, 0.96),
-                    rgba(17, 27, 36, 0.96)
+                    rgba(20, 30, 42, 0.96),
+                    rgba(10, 16, 22, 0.96)
                 );
 
             border: 1px solid rgba(102, 192, 244, 0.12);
 
             box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.25);
+                0 8px 25px rgba(0, 0, 0, 0.45);
 
             transition:
                 transform 0.25s ease,
@@ -178,8 +170,6 @@
                 box-shadow 0.25s ease;
         }
 
-
-        /* Glowing strip on the left */
 
         .account::before {
             content: "";
@@ -209,7 +199,7 @@
                 rgba(102, 192, 244, 0.45);
 
             box-shadow:
-                0 15px 40px rgba(0, 0, 0, 0.4),
+                0 15px 40px rgba(0, 0, 0, 0.55),
                 0 0 30px rgba(102, 192, 244, 0.07);
         }
 
@@ -257,18 +247,6 @@
             border: 1px solid rgba(255,255,255,0.06);
         }
 
-
-        /*
-        ============================================================
-        IF YOU WANT TO USE A STEAM AVATAR:
-
-        Inside .account-avatar, instead of the text 01/02/MAIN,
-        you can write:
-
-        <img src="IMAGE_URL">
-
-        ============================================================
-        */
 
         .account-avatar img {
             width: 100%;
@@ -369,7 +347,7 @@
             white-space: nowrap;
 
             box-shadow:
-                0 4px 12px rgba(0,0,0,0.25);
+                0 4px 12px rgba(0,0,0,0.35);
 
             transition:
                 transform 0.2s ease,
@@ -384,7 +362,7 @@
             filter: brightness(1.15);
 
             box-shadow:
-                0 7px 18px rgba(0,0,0,0.35);
+                0 7px 18px rgba(0,0,0,0.45);
         }
 
 
@@ -420,13 +398,11 @@
                 padding: 35px 14px;
             }
 
-
             .site-title {
                 font-size: 29px;
 
                 letter-spacing: 4px;
             }
-
 
             .site-subtitle {
                 font-size: 11px;
@@ -434,11 +410,9 @@
                 letter-spacing: 2px;
             }
 
-
             .account {
                 padding: 15px;
             }
-
 
             .account-avatar {
                 width: 58px;
@@ -447,21 +421,17 @@
                 margin-right: 12px;
             }
 
-
             .account-type {
                 font-size: 9px;
             }
-
 
             .account-name {
                 font-size: 16px;
             }
 
-
             .account-description {
                 font-size: 11px;
             }
-
 
             .steam-button {
                 min-width: auto;
@@ -483,26 +453,13 @@
 
 <div class="container">
 
-
-    <!-- =========================================================
-         HEADER
-         ========================================================= -->
-
     <header>
 
-        <div class="site-avatar">
-            S
-        </div>
-
-
-        <!-- =====================================================
-             PUT YOUR NICKNAME / NAME HERE
-             ===================================================== -->
+        <div class="site-avatar" id="site-avatar"></div>
 
         <h1 class="site-title">
             ACCOUNTS
         </h1>
-
 
         <div class="site-subtitle">
             My Steam Accounts
@@ -511,260 +468,172 @@
     </header>
 
 
+    <div class="accounts" id="accounts">
 
-    <!-- =========================================================
-         ACCOUNTS
-         ========================================================= -->
+        <!-- Account 1 -->
+        <div class="account" data-index="0">
 
-    <div class="accounts">
-
-
-
-        <!-- =====================================================
-             ACCOUNT #1 — MAIN
-             ===================================================== -->
-
-        <div class="account">
-
-
-            <!-- AVATAR -->
-
-            <div class="account-avatar">
-
-                <!--
-                INSERT THE MAIN ACCOUNT AVATAR HERE IF YOU WANT.
-
-                For example:
-
-                <img src="IMAGE_URL">
-
-                Keep MAIN for now.
-                -->
-
-                MAIN
-
-            </div>
-
-
-
-            <!-- INFO -->
+            <div class="account-avatar">01</div>
 
             <div class="account-info">
-
-                <div class="account-type">
-                    Main acc
-                </div>
-
-
-                <!--
-                ==================================================
-                INSERT THE MAIN ACCOUNT NICKNAME HERE
-                ==================================================
-                -->
-
-                <div class="account-name">
-                    MAIN ACCOUNT NICKNAME
-                </div>
-
-
-                <!--
-                ==================================================
-                YOU CAN CHANGE THIS DESCRIPTION
-                ==================================================
-                -->
-
-                <div class="account-description">
-                    Primary Steam account
-                </div>
-
+                <div class="account-type">Main acc</div>
+                <div class="account-name">Loading...</div>
+                <div class="account-description">Primary Steam account</div>
             </div>
 
-
-
-            <!-- =================================================
-                 MAIN STEAM LINK
-
-                 REPLACE THE ADDRESS INSIDE href="..."
-
-                 For example:
-
-                 href="https://steamcommunity.com/id/yournick/"
-                 ================================================= -->
-
-            <a
-                class="steam-button"
-                href="INSERT_MAIN_STEAM_LINK_HERE"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
+            <a class="steam-button" href="#" target="_blank" rel="noopener noreferrer">
                 Open Steam
             </a>
-
 
         </div>
 
 
+        <!-- Account 2 -->
+        <div class="account" data-index="1">
 
-
-        <!-- =====================================================
-             ACCOUNT #2 — SECOND
-             ===================================================== -->
-
-        <div class="account">
-
-
-            <!-- SECOND ACCOUNT AVATAR -->
-
-            <div class="account-avatar">
-
-                <!--
-                INSERT AN IMAGE URL FOR THE AVATAR HERE
-                IF YOU WANT.
-
-                Keep TW1 for now.
-                -->
-
-                TW1
-
-            </div>
-
-
+            <div class="account-avatar">02</div>
 
             <div class="account-info">
-
-                <div class="account-type">
-                    Second acc
-                </div>
-
-
-                <!--
-                ==================================================
-                INSERT THE SECOND ACCOUNT NICKNAME HERE
-                ==================================================
-                -->
-
-                <div class="account-name">
-                    SECOND ACCOUNT NICKNAME
-                </div>
-
-
-                <div class="account-description">
-                    Second Steam account
-                </div>
-
+                <div class="account-type">Second acc</div>
+                <div class="account-name">Loading...</div>
+                <div class="account-description">Second Steam account</div>
             </div>
 
-
-
-            <!--
-            ======================================================
-            INSERT THE SECOND ACCOUNT STEAM LINK HERE
-            ======================================================
-            -->
-
-            <a
-                class="steam-button"
-                href="INSERT_SECOND_ACCOUNT_STEAM_LINK_HERE"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
+            <a class="steam-button" href="#" target="_blank" rel="noopener noreferrer">
                 Open Steam
             </a>
-
 
         </div>
 
 
+        <!-- Account 3 -->
+        <div class="account" data-index="2">
 
-
-        <!-- =====================================================
-             ACCOUNT #3 — THIRD
-             ===================================================== -->
-
-        <div class="account">
-
-
-            <!-- THIRD ACCOUNT AVATAR -->
-
-            <div class="account-avatar">
-
-                <!--
-                INSERT AN IMAGE URL FOR THE AVATAR HERE
-                IF YOU WANT.
-
-                Keep TW2 for now.
-                -->
-
-                TW2
-
-            </div>
-
-
+            <div class="account-avatar">03</div>
 
             <div class="account-info">
-
-                <div class="account-type">
-                    Third acc
-                </div>
-
-
-                <!--
-                ==================================================
-                INSERT THE THIRD ACCOUNT NICKNAME HERE
-                ==================================================
-                -->
-
-                <div class="account-name">
-                    THIRD ACCOUNT NICKNAME
-                </div>
-
-
-                <div class="account-description">
-                    Third Steam account
-                </div>
-
+                <div class="account-type">Third acc</div>
+                <div class="account-name">Loading...</div>
+                <div class="account-description">Third Steam account</div>
             </div>
 
-
-
-            <!--
-            ======================================================
-            INSERT THE THIRD ACCOUNT STEAM LINK HERE
-            ======================================================
-            -->
-
-            <a
-                class="steam-button"
-                href="INSERT_THIRD_ACCOUNT_STEAM_LINK_HERE"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
+            <a class="steam-button" href="#" target="_blank" rel="noopener noreferrer">
                 Open Steam
             </a>
 
-
         </div>
-
 
     </div>
 
 
-
-    <!-- =========================================================
-         FOOTER
-         ========================================================= -->
-
     <footer>
-
-        <!-- YOU CAN WRITE ANYTHING HERE -->
-
         STEAM ACCOUNTS
-
     </footer>
-
 
 </div>
 
-</body>
 
+
+<script>
+
+    /* =========================================================
+       SETTINGS — EDIT ONLY THIS BLOCK
+       ========================================================= */
+
+    const STEAM_API_KEY = "PASTE_YOUR_STEAM_API_KEY_HERE";
+
+    const ACCOUNTS = [
+        { label: "Main acc",   description: "Primary Steam account", steamid: "76561199168593472" },
+        { label: "Second acc", description: "Second Steam account",  steamid: "76561199820347847" },
+        { label: "Third acc",  description: "Third Steam account",   steamid: "76561199820223492" }
+    ];
+
+    /* =========================================================
+       DO NOT EDIT BELOW THIS LINE
+       ========================================================= */
+
+    async function loadSteamProfiles() {
+
+        const cards = document.querySelectorAll(".account");
+
+        cards.forEach((card, i) => {
+            const acc = ACCOUNTS[i];
+            if (!acc) return;
+            card.querySelector(".account-type").textContent = acc.label;
+            card.querySelector(".account-description").textContent = acc.description;
+        });
+
+        const ids = ACCOUNTS.map(a => a.steamid).filter(Boolean).join(",");
+
+        if (!STEAM_API_KEY || STEAM_API_KEY.includes("PASTE_") || !ids) {
+            cards.forEach(card => {
+                card.querySelector(".account-name").textContent = "Set API key in code";
+            });
+            console.warn("Steam API key not set.");
+            return;
+        }
+
+        const url =
+            "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/" +
+            "?key=" + encodeURIComponent(STEAM_API_KEY) +
+            "&steamids=" + encodeURIComponent(ids);
+
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+
+            const players = (data.response && data.response.players) || [];
+
+            const byId = {};
+            players.forEach(p => { byId[p.steamid] = p; });
+
+            cards.forEach((card, i) => {
+                const acc = ACCOUNTS[i];
+                if (!acc) return;
+
+                const p = byId[acc.steamid];
+
+                const nameEl   = card.querySelector(".account-name");
+                const avatarEl = card.querySelector(".account-avatar");
+                const btnEl    = card.querySelector(".steam-button");
+
+                if (!p) {
+                    nameEl.textContent = "Profile not found";
+                    return;
+                }
+
+                nameEl.textContent = p.personaname || "Unknown";
+
+                if (p.avatarfull) {
+                    avatarEl.innerHTML = '<img src="' + p.avatarfull + '" alt="">';
+                }
+
+                if (p.profileurl) {
+                    btnEl.href = p.profileurl;
+                }
+            });
+
+            // Set header avatar from the FIRST (main) account
+            const mainAcc = ACCOUNTS[0];
+            const mainPlayer = mainAcc ? byId[mainAcc.steamid] : null;
+            const siteAvatar = document.getElementById("site-avatar");
+
+            if (mainPlayer && mainPlayer.avatarfull && siteAvatar) {
+                siteAvatar.innerHTML =
+                    '<img src="' + mainPlayer.avatarfull + '" alt="">';
+            }
+
+        } catch (err) {
+            console.error("Steam API error:", err);
+            cards.forEach(card => {
+                card.querySelector(".account-name").textContent = "Steam API error";
+            });
+        }
+    }
+
+    loadSteamProfiles();
+
+</script>
+
+</body>
 </html>
