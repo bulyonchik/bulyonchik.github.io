@@ -179,7 +179,16 @@
 
 <script>
     /* =========================================================
-       SETTINGS — EDIT ONLY THIS BLOCK
+       ⚠️ EDIT ONLY THIS LINE — paste your Cloudflare Worker URL
+       =========================================================
+       Example: "https://steam-proxy.yourname.workers.dev"
+       No trailing slash.
+       ========================================================= */
+
+    const PROXY_URL = "https://mute-scene-0749.sanyaivanovich84.workers.dev";
+
+    /* =========================================================
+       DO NOT EDIT BELOW
        ========================================================= */
 
     const ACCOUNTS = [
@@ -188,38 +197,17 @@
         { label: "Third acc",  description: "Third Steam account",   steamid: "76561199820223492" }
     ];
 
-    /* =========================================================
-       DO NOT EDIT BELOW
-       ========================================================= */
-
-    // Multiple CORS proxies — tried in order until one works
-    const PROXIES = [
-        url => "https://api.allorigins.win/raw?url=" + encodeURIComponent(url),
-        url => "https://corsproxy.io/?url=" + encodeURIComponent(url),
-        url => "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(url),
-        url => "https://cors.eu.org/" + url
-    ];
-
-    async function fetchSteamXml(targetUrl) {
-        for (let i = 0; i < PROXIES.length; i++) {
-            try {
-                const res = await fetch(PROXIES[i](targetUrl));
-                if (!res.ok) continue;
-                const text = await res.text();
-                if (text && text.indexOf("<profile") !== -1) {
-                    return text;
-                }
-            } catch (e) {
-                // try next proxy
-            }
-        }
-        return null;
-    }
-
     async function loadProfiles() {
         const cards = document.querySelectorAll(".account");
         const siteAvatar = document.getElementById("site-avatar");
-        let firstAvatarUrl = null;
+        let firstAvatar = null;
+
+        if (!PROXY_URL || PROXY_URL.includes("PASTE_")) {
+            cards.forEach(card => {
+                card.querySelector(".account-name").textContent = "Set PROXY_URL in code";
+            });
+            return;
+        }
 
         for (let i = 0; i < cards.length; i++) {
             const card = cards[i];
@@ -236,33 +224,37 @@
             const profileUrl = "https://steamcommunity.com/profiles/" + acc.steamid + "/";
             btnEl.href = profileUrl;
 
-            nameEl.textContent = "Loading...";
+            const apiUrl =
+                PROXY_URL +
+                "?url=" +
+                encodeURIComponent(profileUrl + "?xml=1");
 
-            const xmlText = await fetchSteamXml(profileUrl + "?xml=1");
+            try {
+                const res = await fetch(apiUrl);
+                const text = await res.text();
 
-            if (!xmlText) {
-                nameEl.textContent = "Could not load";
-                continue;
-            }
+                const doc = new DOMParser().parseFromString(text, "text/xml");
 
-            const doc = new DOMParser().parseFromString(xmlText, "text/xml");
+                const nickNode   = doc.getElementsByTagName("steamID")[0];
+                const avatarNode = doc.getElementsByTagName("avatarFull")[0];
 
-            const nickNode   = doc.getElementsByTagName("steamID")[0];
-            const avatarNode = doc.getElementsByTagName("avatarFull")[0];
+                const nick   = nickNode   ? nickNode.textContent.trim()   : "";
+                const avatar = avatarNode ? avatarNode.textContent.trim() : "";
 
-            const nick   = nickNode   ? nickNode.textContent.trim()   : "";
-            const avatar = avatarNode ? avatarNode.textContent.trim() : "";
+                nameEl.textContent = nick || "Unknown";
 
-            nameEl.textContent = nick || "Unknown";
-
-            if (avatar && avatar.indexOf("http") === 0) {
-                avatarEl.innerHTML = '<img src="' + avatar + '" alt="">';
-                if (i === 0) firstAvatarUrl = avatar;
+                if (avatar && avatar.indexOf("http") === 0) {
+                    avatarEl.innerHTML = '<img src="' + avatar + '" alt="">';
+                    if (i === 0) firstAvatar = avatar;
+                }
+            } catch (err) {
+                console.error("Load error for", acc.steamid, err);
+                nameEl.textContent = "Error";
             }
         }
 
-        if (firstAvatarUrl && siteAvatar) {
-            siteAvatar.innerHTML = '<img src="' + firstAvatarUrl + '" alt="">';
+        if (firstAvatar && siteAvatar) {
+            siteAvatar.innerHTML = '<img src="' + firstAvatar + '" alt="">';
         }
     }
 
