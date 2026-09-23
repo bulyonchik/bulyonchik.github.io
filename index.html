@@ -3,636 +3,260 @@
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>My Steam Accounts</title>
 
     <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
             min-height: 100vh;
-
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
+            font-family: Arial, Helvetica, sans-serif;
             color: #ffffff;
-
-            background:
-                radial-gradient(
-                    circle at 50% -10%,
-                    #101821 0%,
-                    #0a1017 35%,
-                    #05080c 70%,
-                    #000000 100%
-                );
-
+            background: radial-gradient(circle at 50% -10%, #101821 0%, #0a1017 35%, #05080c 70%, #000000 100%);
             padding: 55px 20px;
         }
 
+        .container { width: 100%; max-width: 850px; margin: 0 auto; }
 
-        /* =========================================================
-           MAIN CONTAINER
-           ========================================================= */
-
-        .container {
-            width: 100%;
-            max-width: 850px;
-
-            margin: 0 auto;
-        }
-
-
-        /* =========================================================
-           TOP SECTION
-           ========================================================= */
-
-        header {
-            text-align: center;
-
-            margin-bottom: 50px;
-        }
-
+        header { text-align: center; margin-bottom: 50px; }
 
         .site-avatar {
-            width: 115px;
-            height: 115px;
-
-            margin: 0 auto 22px;
-
-            border-radius: 50%;
-
-            overflow: hidden;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #2a475e,
-                    #162532
-                );
-
-            box-shadow:
-                0 0 35px rgba(102, 192, 244, 0.25);
-
+            width: 115px; height: 115px; margin: 0 auto 22px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #66c0f4, #1b6ca8);
+            font-size: 43px; font-weight: bold;
+            box-shadow: 0 0 35px rgba(102, 192, 244, 0.25);
             border: 2px solid rgba(255,255,255,0.08);
         }
 
-
-        .site-avatar img {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-        }
-
-
         .site-title {
-            font-size: 38px;
-
-            font-weight: 900;
-
-            letter-spacing: 5px;
-
-            margin-bottom: 12px;
-
-            text-transform: uppercase;
+            font-size: 38px; letter-spacing: 5px; margin-bottom: 12px; text-transform: uppercase;
         }
-
 
         .site-subtitle {
-            color: #8f98a0;
-
-            font-size: 14px;
-
-            letter-spacing: 3px;
-
-            text-transform: uppercase;
+            color: #8f98a0; font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
         }
 
-
-        /* =========================================================
-           ACCOUNT CARDS
-           ========================================================= */
-
-        .accounts {
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 18px;
-        }
-
+        .accounts { display: flex; flex-direction: column; gap: 18px; }
 
         .account {
-            position: relative;
-
-            display: flex;
-
-            align-items: center;
-
-            padding: 20px;
-
-            min-height: 105px;
-
-            border-radius: 12px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(20, 30, 42, 0.96),
-                    rgba(10, 16, 22, 0.96)
-                );
-
+            position: relative; display: flex; align-items: center;
+            padding: 20px; min-height: 105px; border-radius: 12px;
+            background: linear-gradient(135deg, rgba(20, 30, 42, 0.96), rgba(10, 16, 22, 0.96));
             border: 1px solid rgba(102, 192, 244, 0.12);
-
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.45);
-
-            transition:
-                transform 0.25s ease,
-                border-color 0.25s ease,
-                box-shadow 0.25s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
         }
-
 
         .account::before {
-            content: "";
-
-            position: absolute;
-
-            left: 0;
-            top: 0;
-            bottom: 0;
-
-            width: 4px;
-
-            border-radius: 12px 0 0 12px;
-
-            background: #66c0f4;
-
-            opacity: 0;
-
-            transition: opacity 0.25s ease;
+            content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 4px; border-radius: 12px 0 0 12px;
+            background: #66c0f4; opacity: 0; transition: opacity 0.25s ease;
         }
-
 
         .account:hover {
             transform: translateY(-5px);
-
-            border-color:
-                rgba(102, 192, 244, 0.45);
-
-            box-shadow:
-                0 15px 40px rgba(0, 0, 0, 0.55),
-                0 0 30px rgba(102, 192, 244, 0.07);
+            border-color: rgba(102, 192, 244, 0.45);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(102, 192, 244, 0.07);
         }
-
-
-        .account:hover::before {
-            opacity: 1;
-        }
-
-
-        /* =========================================================
-           ACCOUNT AVATAR
-           ========================================================= */
+        .account:hover::before { opacity: 1; }
 
         .account-avatar {
-            width: 72px;
-            height: 72px;
-
-            flex-shrink: 0;
-
-            margin-right: 19px;
-
-            border-radius: 10px;
-
-            overflow: hidden;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #2a475e,
-                    #162532
-                );
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            color: #66c0f4;
-
-            font-size: 23px;
-
-            font-weight: bold;
-
+            width: 72px; height: 72px; flex-shrink: 0; margin-right: 19px;
+            border-radius: 10px; overflow: hidden;
+            background: linear-gradient(135deg, #2a475e, #162532);
+            display: flex; align-items: center; justify-content: center;
+            color: #66c0f4; font-size: 23px; font-weight: bold;
             border: 1px solid rgba(255,255,255,0.06);
         }
 
+        .account-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-        .account-avatar img {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-        }
-
-
-        /* =========================================================
-           ACCOUNT INFO
-           ========================================================= */
-
-        .account-info {
-            flex: 1;
-
-            min-width: 0;
-        }
-
+        .account-info { flex: 1; min-width: 0; }
 
         .account-type {
-            color: #66c0f4;
-
-            font-size: 11px;
-
-            font-weight: bold;
-
-            letter-spacing: 2px;
-
-            text-transform: uppercase;
-
-            margin-bottom: 5px;
+            color: #66c0f4; font-size: 11px; font-weight: bold;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px;
         }
-
 
         .account-name {
-            font-size: 20px;
-
-            font-weight: bold;
-
-            margin-bottom: 7px;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
-
-            white-space: nowrap;
+            font-size: 20px; font-weight: bold; margin-bottom: 7px;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
-
 
         .account-description {
-            color: #8f98a0;
-
-            font-size: 13px;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
-
-            white-space: nowrap;
+            color: #8f98a0; font-size: 13px;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
-
-
-        /* =========================================================
-           STEAM BUTTON
-           ========================================================= */
 
         .steam-button {
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            min-width: 125px;
-
-            padding: 11px 17px;
-
-            margin-left: 18px;
-
-            border-radius: 6px;
-
-            background:
-                linear-gradient(
-                    to bottom,
-                    #75b022,
-                    #588a1b
-                );
-
-            color: #ffffff;
-
-            text-decoration: none;
-
-            font-size: 13px;
-
-            font-weight: bold;
-
-            white-space: nowrap;
-
-            box-shadow:
-                0 4px 12px rgba(0,0,0,0.35);
-
-            transition:
-                transform 0.2s ease,
-                filter 0.2s ease,
-                box-shadow 0.2s ease;
+            display: inline-flex; align-items: center; justify-content: center;
+            min-width: 125px; padding: 11px 17px; margin-left: 18px;
+            border-radius: 6px; background: linear-gradient(to bottom, #75b022, #588a1b);
+            color: #ffffff; text-decoration: none; font-size: 13px; font-weight: bold;
+            white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+            transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
         }
-
 
         .steam-button:hover {
-            transform: translateY(-2px);
-
-            filter: brightness(1.15);
-
-            box-shadow:
-                0 7px 18px rgba(0,0,0,0.45);
+            transform: translateY(-2px); filter: brightness(1.15);
+            box-shadow: 0 7px 18px rgba(0,0,0,0.45);
         }
-
-
-        .steam-button:active {
-            transform: translateY(0);
-        }
-
-
-        /* =========================================================
-           FOOTER
-           ========================================================= */
+        .steam-button:active { transform: translateY(0); }
 
         footer {
-            text-align: center;
-
-            margin-top: 45px;
-
-            color: #4e5a65;
-
-            font-size: 11px;
-
-            letter-spacing: 2px;
+            text-align: center; margin-top: 45px;
+            color: #4e5a65; font-size: 11px; letter-spacing: 2px;
         }
-
-
-        /* =========================================================
-           PHONE
-           ========================================================= */
 
         @media (max-width: 600px) {
-
-            body {
-                padding: 35px 14px;
-            }
-
-            .site-title {
-                font-size: 29px;
-
-                letter-spacing: 4px;
-            }
-
-            .site-subtitle {
-                font-size: 11px;
-
-                letter-spacing: 2px;
-            }
-
-            .account {
-                padding: 15px;
-            }
-
-            .account-avatar {
-                width: 58px;
-                height: 58px;
-
-                margin-right: 12px;
-            }
-
-            .account-type {
-                font-size: 9px;
-            }
-
-            .account-name {
-                font-size: 16px;
-            }
-
-            .account-description {
-                font-size: 11px;
-            }
-
-            .steam-button {
-                min-width: auto;
-
-                padding: 9px 10px;
-
-                margin-left: 8px;
-
-                font-size: 10px;
-            }
-
+            body { padding: 35px 14px; }
+            .site-title { font-size: 29px; letter-spacing: 4px; }
+            .site-subtitle { font-size: 11px; letter-spacing: 2px; }
+            .account { padding: 15px; }
+            .account-avatar { width: 58px; height: 58px; margin-right: 12px; }
+            .account-type { font-size: 9px; }
+            .account-name { font-size: 16px; }
+            .account-description { font-size: 11px; }
+            .steam-button { min-width: auto; padding: 9px 10px; margin-left: 8px; font-size: 10px; }
         }
-
     </style>
 </head>
-
 
 <body>
 
 <div class="container">
 
     <header>
-
-        <div class="site-avatar" id="site-avatar"></div>
-
-        <h1 class="site-title">
-            ACCOUNTS
-        </h1>
-
-        <div class="site-subtitle">
-            My Steam Accounts
-        </div>
-
+        <div class="site-avatar">S</div>
+        <h1 class="site-title">ACCOUNTS</h1>
+        <div class="site-subtitle">My Steam Accounts</div>
     </header>
-
 
     <div class="accounts" id="accounts">
 
-        <!-- Account 1 -->
         <div class="account" data-index="0">
-
             <div class="account-avatar">01</div>
-
             <div class="account-info">
                 <div class="account-type">Main acc</div>
                 <div class="account-name">Loading...</div>
                 <div class="account-description">Primary Steam account</div>
             </div>
-
-            <a class="steam-button" href="#" target="_blank" rel="noopener noreferrer">
-                Open Steam
-            </a>
-
+            <a class="steam-button" href="#" target="_blank" rel="noopener noreferrer">Open Steam</a>
         </div>
 
-
-        <!-- Account 2 -->
         <div class="account" data-index="1">
-
             <div class="account-avatar">02</div>
-
             <div class="account-info">
                 <div class="account-type">Second acc</div>
                 <div class="account-name">Loading...</div>
                 <div class="account-description">Second Steam account</div>
             </div>
-
-            <a class="steam-button" href="#" target="_blank" rel="noopener noreferrer">
-                Open Steam
-            </a>
-
+            <a class="steam-button" href="#" target="_blank" rel="noopener noreferrer">Open Steam</a>
         </div>
 
-
-        <!-- Account 3 -->
         <div class="account" data-index="2">
-
             <div class="account-avatar">03</div>
-
             <div class="account-info">
                 <div class="account-type">Third acc</div>
                 <div class="account-name">Loading...</div>
                 <div class="account-description">Third Steam account</div>
             </div>
-
-            <a class="steam-button" href="#" target="_blank" rel="noopener noreferrer">
-                Open Steam
-            </a>
-
+            <a class="steam-button" href="#" target="_blank" rel="noopener noreferrer">Open Steam</a>
         </div>
 
     </div>
 
-
-    <footer>
-        STEAM ACCOUNTS
-    </footer>
+    <footer>STEAM ACCOUNTS</footer>
 
 </div>
 
 
-
 <script>
-
     /* =========================================================
-       SETTINGS — EDIT ONLY THIS BLOCK
+       EDIT ONLY THIS BLOCK
+       =========================================================
+
+       Paste your Steam vanity name (what comes after /id/ in your
+       profile URL) OR your SteamID64.
+
+       Example 1 (vanity URL):
+       https://steamcommunity.com/id/sasha/  →  "sasha"
+
+       Example 2 (SteamID64):
+       https://steamcommunity.com/profiles/76561198XXXXXXXXX/  →  "76561198XXXXXXXXX"
+
        ========================================================= */
 
-    const STEAM_API_KEY = "AAA3040DEEBAF64C0A059F1D8FB57A06";
-
     const ACCOUNTS = [
-        { label: "Main acc",   description: "main acc", steamid: "76561199168593472" },
-        { label: "Second acc", description: "second acc",  steamid: "76561199820347847" },
-        { label: "Third acc",  description: "third acc",   steamid: "76561199820223492" }
+        { label: "Main acc",   description: "Primary Steam account", steam: "76561199168593472" },
+        { label: "Second acc", description: "Second Steam account",  steam: "76561199820347847" },
+        { label: "Third acc",  description: "Third Steam account",   steam: "76561199820223492" }
     ];
 
     /* =========================================================
-       DO NOT EDIT BELOW THIS LINE
+       DO NOT EDIT BELOW
        ========================================================= */
 
-    async function loadSteamProfiles() {
+    function buildProfileUrl(steamInput) {
+        // If it's a 17-digit number → SteamID64
+        if (/^\d{17}$/.test(steamInput)) {
+            return "https://steamcommunity.com/profiles/" + steamInput + "/";
+        }
+        // Otherwise → vanity name
+        return "https://steamcommunity.com/id/" + steamInput + "/";
+    }
 
+    async function loadProfiles() {
         const cards = document.querySelectorAll(".account");
 
-        cards.forEach((card, i) => {
+        for (let i = 0; i < cards.length; i++) {
+            const card = cards[i];
             const acc = ACCOUNTS[i];
-            if (!acc) return;
+            if (!acc) continue;
+
             card.querySelector(".account-type").textContent = acc.label;
             card.querySelector(".account-description").textContent = acc.description;
-        });
 
-        const ids = ACCOUNTS.map(a => a.steamid).filter(Boolean).join(",");
+            const nameEl   = card.querySelector(".account-name");
+            const avatarEl = card.querySelector(".account-avatar");
+            const btnEl    = card.querySelector(".steam-button");
 
-        if (!STEAM_API_KEY || STEAM_API_KEY.includes("PASTE_") || !ids) {
-            cards.forEach(card => {
-                card.querySelector(".account-name").textContent = "Set API key in code";
-            });
-            console.warn("Steam API key not set.");
-            return;
-        }
+            const profileUrl = buildProfileUrl(acc.steam);
+            btnEl.href = profileUrl;
 
-        const url =
-            "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/" +
-            "?key=" + encodeURIComponent(STEAM_API_KEY) +
-            "&steamids=" + encodeURIComponent(ids);
-
-        try {
-            const res = await fetch(url);
-            const data = await res.json();
-
-            const players = (data.response && data.response.players) || [];
-
-            const byId = {};
-            players.forEach(p => { byId[p.steamid] = p; });
-
-            cards.forEach((card, i) => {
-                const acc = ACCOUNTS[i];
-                if (!acc) return;
-
-                const p = byId[acc.steamid];
-
-                const nameEl   = card.querySelector(".account-name");
-                const avatarEl = card.querySelector(".account-avatar");
-                const btnEl    = card.querySelector(".steam-button");
-
-                if (!p) {
-                    nameEl.textContent = "Profile not found";
-                    return;
-                }
-
-                nameEl.textContent = p.personaname || "Unknown";
-
-                if (p.avatarfull) {
-                    avatarEl.innerHTML = '<img src="' + p.avatarfull + '" alt="">';
-                }
-
-                if (p.profileurl) {
-                    btnEl.href = p.profileurl;
-                }
-            });
-
-            // Set header avatar from the FIRST (main) account
-            const mainAcc = ACCOUNTS[0];
-            const mainPlayer = mainAcc ? byId[mainAcc.steamid] : null;
-            const siteAvatar = document.getElementById("site-avatar");
-
-            if (mainPlayer && mainPlayer.avatarfull && siteAvatar) {
-                siteAvatar.innerHTML =
-                    '<img src="' + mainPlayer.avatarfull + '" alt="">';
+            if (!acc.steam || acc.steam.includes("PASTE_")) {
+                nameEl.textContent = "Set username in code";
+                continue;
             }
 
-        } catch (err) {
-            console.error("Steam API error:", err);
-            cards.forEach(card => {
-                card.querySelector(".account-name").textContent = "Steam API error";
-            });
+            try {
+                const res = await fetch(profileUrl + "?xml=1");
+                const text = await res.text();
+
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(text, "text/xml");
+
+                const nick = xml.querySelector("steamID")?.textContent;
+                const avatar = xml.querySelector("avatarFull")?.textContent;
+
+                if (nick) nameEl.textContent = nick;
+                else nameEl.textContent = "Profile not found";
+
+                if (avatar) {
+                    avatarEl.innerHTML = '<img src="' + avatar + '" alt="">';
+                }
+
+            } catch (err) {
+                console.error("Error loading", acc.steam, err);
+                nameEl.textContent = "Error loading";
+            }
         }
     }
 
-    loadSteamProfiles();
-
+    loadProfiles();
 </script>
 
 </body>
